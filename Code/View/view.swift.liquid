@@ -8,15 +8,21 @@
 
 import UIKit
 
-class {{ module_info.name }}ViewController: UIViewController {
-	private var presenter: {{ module_info.name }}PresenterType?
+protocol {{ module_info.name }}ViewDelegate: class {}
 
-	// MARK: Life cycle
+class {{ module_info.name }}View: UIView {
+	private weak var delegate: {{ module_info.name }}ViewDelegate?
 
-	override func loadView() {
-		view = {{ module_info.name }}View(delegate: self)
+	init(delegate: {{ module_info.name }}ViewDelegate) {
+		super.init(frame: .zero)
+		self.delegate = delegate
 	}
 
+	required init?(coder: NSCoder) {
+		super.init(coder: coder)
+	}
+
+	// MARK: Life cycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		presenter?.viewIsReady()
@@ -28,5 +34,3 @@ extension {{ module_info.name }}ViewController: {{module_info.name}}ViewType {
 		self.presenter = presenter
 	}
 }
-
-extension {{ module_info.name }}ViewController: {{ module_info.name }}ViewDelegate {}

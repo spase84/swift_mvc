@@ -13,12 +13,11 @@ class {{ module_info.name }}Assembly: Assembly {
 		container.register({{ module_info.name}}ViewType.self) { _ in 
 			{{ module_info.name }}ViewController()
 		}.initCompleted { (resolver: Resolver, view: {{ module_info.name }}ViewType) in
-			if let presenter = resolver.resolve({{ module_info.name }}PresenterType.self) as? {{ module_info.name }}Presenter {
+			if let presenter = resolver.resolve({{ module_info.name }}PresenterType.self, argument: view) as? {{ module_info.name }}Presenter {
 				if let navigator = resolver.resolve({{ module_info.name }}Navigator.self, argument: view) {
 					navigator.resolver = resolver
 					presenter.navigator = navigator
 				}
-				presenter.attach(view: view)
 				view.set(presenter: presenter)
 			}
 		}
@@ -27,8 +26,8 @@ class {{ module_info.name }}Assembly: Assembly {
 			{{ module_info.name }}Navigator(sourceViewController: view as? {{ module_info.name }}ViewController)
 		}
 		
-		container.register({{ module_info.name }}PresenterType.self) { _ in
-			{{ module_info.name }}Presenter()
+		container.register({{ module_info.name }}PresenterType.self) { (_, view: {{ module_info.name }}ViewType) in
+			{{ module_info.name }}Presenter(view: view)
 		}
 	}
 }

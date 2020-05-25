@@ -14,7 +14,7 @@ class {{ module_info.name }}Navigator: Navigator {
 	enum Destination {
 		case someDestination
 	}
-  
+
 	internal weak var sourceViewController: UIViewController?
 
 	// MARK: - Initializer
@@ -30,12 +30,13 @@ class {{ module_info.name }}Navigator: Navigator {
 			}
 		}
 	}
-	
+
 	// MARK: - Private
 	internal func makeViewController(for destination: Destination) -> UIViewController? {
 		switch destination {
 		case .someDestination:
-			return resolver.resolve(SomeViewType.self) as? SomeViewController
+//			return resolver.resolve(SomeViewType.self) as? SomeViewController
+			return nil
 		}
 	}
 }

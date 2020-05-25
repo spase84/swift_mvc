@@ -9,12 +9,12 @@
 class {{ module_info.name }}Presenter {
 	private weak var view: {{ module_info.name }}ViewType?
 	var navigator: {{ module_info.name }}Navigator!
+
+	init(view: {{ module_info.name }}ViewType) {
+		self.view = view
+	}
 }
 
 extension {{ module_info.name }}Presenter: {{ module_info.name }}PresenterType {
-	func attach(view: {{ module_info.name }}ViewType) {
-		self.view = view
-	}
-
 	func viewIsReady() {}
 }
